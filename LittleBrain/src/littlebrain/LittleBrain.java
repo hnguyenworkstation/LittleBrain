@@ -20,7 +20,7 @@ public class LittleBrain {
         // TODO code application logic here
         SwingUtilities.invokeLater( new Runnable() {
             public void run() {
-                MainBrainUI mainBrain = new MainBrainUI();
+                UserInterface.mainBrain.show();
             }
         });
     }

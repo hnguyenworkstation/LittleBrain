@@ -5,9 +5,14 @@
  */
 package littlebrain;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
@@ -16,7 +21,7 @@ import javax.swing.*;
  *
  * @author quang
  */
-public class MainBrainUI {
+public class LoginUI {
     
     private JFrame mainFrame;
     
@@ -35,17 +40,24 @@ public class MainBrainUI {
     private JPanel controlUserFields;
     private JPanel controlButton;
     
-    public MainBrainUI() {
+    public LoginUI() {
         initElements();
         addElementsToMainView();
         mainFrame.pack();
+    }
+    
+    public void show() {
         mainFrame.setVisible(true);
+    }
+    
+    public void dismiss() {
+        mainFrame.setVisible(false);
     }
     
     private void initElements() {
         mainFrame = new JFrame("Little Brain");
-        mainFrame.setPreferredSize(new Dimension(400,600));
-        mainFrame.setLayout(new GridLayout(5,0));
+        mainFrame.setPreferredSize(new Dimension(
+                UserInterface.WINDOW_WIDTH,UserInterface.WINDOW_HEIGHT));
         
         // adding labels
         greeting = new JLabel("Little Brain", JLabel.CENTER);
@@ -59,52 +71,67 @@ public class MainBrainUI {
         });
         
         controlMainView = new JPanel();
-        controlMainView.setLayout(new BoxLayout(controlMainView, BoxLayout.Y_AXIS));
-
+        controlMainView.setLayout(new GridLayout(4,0));
+        controlMainView.add(greeting);
+        
+        // username and password controllers;
+        controlUserFields = new JPanel();
+        controlUserFields.setLayout(new GridLayout(2,0));
+        
         initUsernameField();
         initPasswordField();
         initButtonField();
+        
+        controlMainView.add(controlUserFields);
+        controlMainView.add(controlButton);
+        
+        // Add Icon
+        ImageIcon icon = new ImageIcon("res/mainlogo.jpg");
+        iconLabel = new JLabel(icon);
     }
     
-    private void initUsernameField() {                
+    private void initUsernameField() {
         usernameLabel = new JLabel("Username: ");
-        usernameField = new JTextField(20);
+        usernameField = new JTextField();
         
         JPanel userPanel = new JPanel();
+        userPanel.setLayout(new GridLayout(2,0));
         userPanel.add(usernameLabel);
         userPanel.add(usernameField);
         
-        controlMainView.add(userPanel);
+        controlUserFields.add(userPanel);
     }
     
     private void initPasswordField() {
-        
         passwordLabel = new JLabel("Password: ");
-        passwordField = new JPasswordField(20);
+        passwordField = new JPasswordField();
         
         JPanel passField = new JPanel();
+        passField.setLayout(new GridLayout(2,0));
         passField.add(passwordLabel);
         passField.add(passwordField);
-        
-        controlMainView.add(passField);
+        controlUserFields.add(passField);
     }
     
     private void initButtonField() {
         controlButton = new JPanel();
-        controlButton.setLayout(new FlowLayout());
         
-        loginBtn = new LoginButton();
-        loginBtn.setPreferredSize(new Dimension(120,30));
-        registerBtn = new RegisterButton();
-        registerBtn.setPreferredSize(new Dimension(120,30));
+        loginBtn = new UIButton(UserInterface.LOGIN);
+        registerBtn = new UIButton(UserInterface.REGISTER_UI);
         
         controlButton.add(loginBtn);
         controlButton.add(registerBtn);
-        controlMainView.add(controlButton);
     }
     
     private void addElementsToMainView() {
-        mainFrame.add(greeting);
         mainFrame.add(controlMainView);
+    }
+    
+    public Point getLocation() {
+        return mainFrame.getLocationOnScreen();
+    }
+    
+    public void setLocation(Point p) {
+        mainFrame.setLocation(p);
     }
 }
