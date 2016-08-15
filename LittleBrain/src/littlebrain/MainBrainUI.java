@@ -5,13 +5,9 @@
  */
 package littlebrain;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
@@ -64,45 +60,33 @@ public class MainBrainUI {
         
         controlMainView = new JPanel();
         controlMainView.setLayout(new BoxLayout(controlMainView, BoxLayout.Y_AXIS));
-        
-        // username and password controllers;
-        controlUserFields = new JPanel();
-        controlUserFields.setLayout(new BoxLayout(controlUserFields, BoxLayout.Y_AXIS));
-        
-        usernameLabel = new JLabel("Username: ");
-        passwordLabel = new JLabel("Password: ");
-        
-        usernameField = new JTextField();
-        passwordField = new JPasswordField();
-        
+
         initUsernameField();
         initPasswordField();
         initButtonField();
-        
-        controlMainView.add(controlUserFields);
-        controlMainView.add(controlButton);
-        controlMainView.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
-        
-        // Add Icon
-        ImageIcon icon = new ImageIcon("res/mainlogo.jpg");
-        iconLabel = new JLabel(icon);
     }
     
-    private void initUsernameField() {
+    private void initUsernameField() {                
+        usernameLabel = new JLabel("Username: ");
+        usernameField = new JTextField(20);
+        
         JPanel userPanel = new JPanel();
-        userPanel.setLayout(new GridLayout(1,2));
         userPanel.add(usernameLabel);
         userPanel.add(usernameField);
         
-        controlUserFields.add(userPanel);
+        controlMainView.add(userPanel);
     }
     
     private void initPasswordField() {
+        
+        passwordLabel = new JLabel("Password: ");
+        passwordField = new JPasswordField(20);
+        
         JPanel passField = new JPanel();
-        passField.setLayout(new GridLayout(1,2));
         passField.add(passwordLabel);
         passField.add(passwordField);
-        controlUserFields.add(passField);
+        
+        controlMainView.add(passField);
     }
     
     private void initButtonField() {
@@ -116,11 +100,11 @@ public class MainBrainUI {
         
         controlButton.add(loginBtn);
         controlButton.add(registerBtn);
+        controlMainView.add(controlButton);
     }
     
     private void addElementsToMainView() {
         mainFrame.add(greeting);
-        mainFrame.add(iconLabel);
         mainFrame.add(controlMainView);
     }
 }
